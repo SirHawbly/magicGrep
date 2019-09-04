@@ -1,0 +1,87 @@
+Card Layouts Table - x
+--
+'layout_id' - KEY
+'layout_string'
+
+Card Type ID Table - x
+--
+'id'
+'type_id'
+
+Card Type Table - x
+--
+'type_id' - KEY
+'type_line'
+
+Card Costs Table - x
+--
+'id' - KEY
+'mana_cost'
+'cmc'
+
+Card Color Table - x
+--
+'color_id' - KEY
+'identity_name'
+'colors'
+
+Card Legality ID Table - x
+--
+'id'
+'legal_id'
+
+Card Legality Table - x
+--
+'legal_id' - KEY
+'format'
+
+Card Information Table
+--
+'id' - KEY
+'name'
+'released_at'
+'reprinted'
+'rarity'
+'lang'
+'power'
+'toughness'
+'color_id'
+'layout_id'
+'artist_id'
+'legal_id'
+
+Card Images Table
+--
+'id' - KEY
+'small'
+'normal'
+'large'
+'png'
+'art_crop'
+'border_crop'
+
+Set ID Table
+--
+'id'
+'set_id'
+
+Set Table
+--
+'set_id' - KEY
+'set_symbol'
+'set_name'
+
+Artists Table
+--
+'artist_id' - KEY
+'artist'
+
+Ability ID Table
+--
+'id'
+'ability id'
+
+Abilities Table
+--
+'ability_id' - KEY
+'oracle_text'
