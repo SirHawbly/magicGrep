@@ -1,8 +1,10 @@
-
-
+# -- DATABASE SCRIPTS --------------------------------------
 # ----------------------------------------------------------
 
-# CREATE CARD TABLE STRING - check
+# # -- CREATE INFO TABLE -----------------------------------
+# # --------------------------------------------------------
+
+# CREATE CARD INFO TABLE STRING - check
 create_info = """
   CREATE TABLE CardInformation (
     name CHAR(100),
@@ -17,6 +19,10 @@ create_info = """
     stats_id INTEGER REFERENCES CardStats(stats_id),
     );"""
 # --
+
+
+# # -- CREATE REFERENCE TABLE PAIRS ------------------------
+# # --------------------------------------------------------
 
 
 # CREATE CARD ABILITY TABLES STRINGS - check
@@ -47,6 +53,56 @@ create_artists = """
     artist_name CHAR(50)
     );"""
 # --
+
+
+# CREATE CARD FORMAT TABLES STRING - check
+create_legality_ref = """
+  CREATE TABLE CardLegalityReference (
+    id INTEGER REFERENCES CardInformation(id),
+    format_id INTEGER REFERENCES CardLegality(format_id)
+    );"""
+
+create_formats = """
+  CREATE TABLE CardFormats (
+    format_id INTEGER PRIMARY KEY, 
+    format CHAR(20)
+    );"""
+# --
+
+
+# CREATE CARD SET TABLES STRING - check
+create_set_reference = """
+  CREATE TABLE CardSetReference (
+    id INTEGER, 
+    set_id INTEGER
+    );"""
+
+create_sets = """
+  CREATE TABLE CardSets (
+    set_id INTEGER PRIMARY KEY, 
+    set_symbol CHAR(10),
+    set_name CHAR(50)
+    );"""
+# --
+
+
+# CREATE CARD TYPE TABLES STRING - check
+create_type_ref = """
+  CREATE TABLE CardTypeReference (
+    id INTEGER REFERENCES CardInformation(id),
+    type_id INTEGER REFERENCES CardTypes(type_id)
+    );"""
+
+create_types = """
+  CREATE TABLE CardTypes (
+    type_id INTEGER NOT NULL PRIMARY KEY,
+    type_line CHAR(200)
+    );"""
+# --
+
+
+# # -- CREATE SINGLE TABLES --------------------------------
+# # --------------------------------------------------------
 
 
 # CREATE CARD COLOR TABLE STRING - check
@@ -92,21 +148,6 @@ create_images = """
 # --
 
 
-# CREATE CARD FORMAT TABLES STRING - check
-create_legality_ref = """
-  CREATE TABLE CardLegalityReference (
-    id INTEGER REFERENCES CardInformation(id),
-    format_id INTEGER REFERENCES CardLegality(format_id)
-    );"""
-
-create_formats = """
-  CREATE TABLE CardFormats (
-    format_id INTEGER PRIMARY KEY, 
-    format CHAR(20)
-    );"""
-# --
-
-
 # CREATE CARD LAYOUT TABLE STRING - check
 create_layouts = """
   CREATE TABLE CardLayouts (
@@ -125,22 +166,6 @@ create_rarity = """
 # --  
 
 
-# CREATE CARD SET TABLES STRING - check
-create_set_reference = """
-  CREATE TABLE CardSetReference (
-    id INTEGER, 
-    set_id INTEGER
-    );"""
-
-create_sets = """
-  CREATE TABLE CardSets (
-    set_id INTEGER PRIMARY KEY, 
-    set_symbol CHAR(10),
-    set_name CHAR(50)
-    );"""
-# --
-
-
 # CREATE CARD STAT TABLE STRING - check
 create_stats = """
   CREATE TABLE CardStats (
@@ -151,38 +176,28 @@ create_stats = """
 # --
 
 
-# CREATE CARD TYPE TABLES STRING - check
-create_type_ref = """
-  CREATE TABLE CardTypeReference (
-    id INTEGER REFERENCES CardInformation(id),
-    type_id INTEGER REFERENCES CardTypes(type_id)
-    );"""
-
-create_types = """
-  CREATE TABLE CardTypes (
-    type_id INTEGER NOT NULL PRIMARY KEY,
-    type_line CHAR(200)
-    );"""
-# --
+# ----------------------------------------------------------
+# -- DATABASE SCRIPTS END ----------------------------------
 
 
+# -- OTHER GLOBAL VARIABLES --------------------------------
 # ----------------------------------------------------------
 
 
-# magic color identities
+# ALL COLOR IDENTITIES
 color_identities = {
 
-  # none
+  # 0 color
   "Colorless": ["C"],
 
-  # monos
+  # 1 color
   "Mono Red": ["R"],
   "Mono Black": ["B"],
   "Mono Blue": ["U"],
   "Mono Green": ["G"],
   "Mono White": ["W"],
   
-  # duals
+  # 2 color
   "Azorius": ["W", "U"],
   "Dimir": ["U", "B"],
   "Rakdos": ["B", "R"],
@@ -194,7 +209,7 @@ color_identities = {
   "Boros": ["R", "W"],
   "Simic": ["G", "U"],
 
-  # triads
+  # 3 color
   "Jund": ["R", "G", "B"],
   "Bant": ["W", "G", "U"],
   "Grixis": ["B", "R", "U"],
@@ -206,16 +221,17 @@ color_identities = {
   "Temur": ["G", "U", "R"],
   "Abzan": ["G", "W", "B"],
 
-  # quads
+  # 4 color
   "Chaos": ["U", "R", "B", "G"],
   "Aggression": ["W", "R", "B", "G"],
   "Altruism": ["U", "W", "R", "G"],
   "Growth": ["U", "W", "B", "G"],
   "Artifice": ["U", "W", "R", "B"],
 
-  # five
+  # 5 color
   "Domain": ["W", "U", "B", "R", "G"],
 }
 
 
 # ----------------------------------------------------------
+# -- END ---------------------------------------------------
