@@ -55,7 +55,7 @@ def make_new_database():
   db = 'scry.db'
 
   # a list of all the create table queries
-  create_queries = [create_info, create_ability_ref, create_abilities, create_artists, create_colors, create_costs, create_dates, create_images, create_legality_ref, create_formats, create_layouts, create_rarity, create_set_reference, create_sets, create_type_ref, create_types]
+  create_queries = [create_info, create_ability_ref, create_abilities, create_artists, create_colors, create_costs, create_dates, create_images, create_legality_ref, create_formats, create_layouts, create_rarity, create_set_reference, create_sets, create_type_ref, create_types, create_artist_ref, create_artists, create_stats]
 
   # run through all the table creation queries
   for query in create_queries:
@@ -78,3 +78,5 @@ if (__name__ == '__main__'):
   """
 
   make_new_database()
+
+  print(len(color_identities))

@@ -169,53 +169,53 @@ create_types = """
 # ----------------------------------------------------------
 
 
-  # magic color identities
-  color_identities = {
+# magic color identities
+color_identities = {
 
-    # none
-    "Colorless": ["C"],
+  # none
+  "Colorless": ["C"],
 
-    # monos
-    "Mono Red": ["R"],
-    "Mono Black": ["B"],
-    "Mono Blue": ["U"],
-    "Mono Green": ["G"],
-    "Mono White": ["W"],
-    
-    # duals
-    "Azorius": ["W", "U"],
-    "Dimir": ["U", "B"],
-    "Rakdos": ["B", "R"],
-    "Gruul": ["R", "G"],
-    "Selesnya": ["G", "W"],
-    "Orzhov": ["W", "B"],
-    "Izzet": ["U", "R"],
-    "Golgari": ["B", "G"],
-    "Boros": ["R", "W"],
-    "Simic": ["G", "U"],
+  # monos
+  "Mono Red": ["R"],
+  "Mono Black": ["B"],
+  "Mono Blue": ["U"],
+  "Mono Green": ["G"],
+  "Mono White": ["W"],
+  
+  # duals
+  "Azorius": ["W", "U"],
+  "Dimir": ["U", "B"],
+  "Rakdos": ["B", "R"],
+  "Gruul": ["R", "G"],
+  "Selesnya": ["G", "W"],
+  "Orzhov": ["W", "B"],
+  "Izzet": ["U", "R"],
+  "Golgari": ["B", "G"],
+  "Boros": ["R", "W"],
+  "Simic": ["G", "U"],
 
-    # triads
-    "Jund": ["R", "G", "B"],
-    "Bant": ["W", "G", "U"],
-    "Grixis": ["B", "R", "U"],
-    "Naya": ["G", "W", "R"],
-    "Esper": ["U", "W", "B"],
-    "Jeskai": ["W", "U", "R"],
-    "Mardu": ["B", "W", "R"],
-    "Sultai": ["G", "B", "U"],
-    "Temur": ["G", "U", "R"],
-    "Abzan": ["G", "W", "B"],
+  # triads
+  "Jund": ["R", "G", "B"],
+  "Bant": ["W", "G", "U"],
+  "Grixis": ["B", "R", "U"],
+  "Naya": ["G", "W", "R"],
+  "Esper": ["U", "W", "B"],
+  "Jeskai": ["W", "U", "R"],
+  "Mardu": ["B", "W", "R"],
+  "Sultai": ["G", "B", "U"],
+  "Temur": ["G", "U", "R"],
+  "Abzan": ["G", "W", "B"],
 
-    # quads
-    "Chaos": ["U", "R", "B", "G"],
-    "Aggression": ["W", "R", "B", "G"],
-    "Altruism": ["U", "W", "R", "G"],
-    "Growth": ["U", "W", "B", "G"],
-    "Artifice": ["U", "W", "R", "B"],
+  # quads
+  "Chaos": ["U", "R", "B", "G"],
+  "Aggression": ["W", "R", "B", "G"],
+  "Altruism": ["U", "W", "R", "G"],
+  "Growth": ["U", "W", "B", "G"],
+  "Artifice": ["U", "W", "R", "B"],
 
-    # five
-    "Domain": ["W", "U", "B", "R", "G"],
-  }
+  # five
+  "Domain": ["W", "U", "B", "R", "G"],
+}
 
 
 # ----------------------------------------------------------

@@ -2,7 +2,7 @@
 
 import os, sys
 import json
-import make_db from parse_database
+from parse_database import make_db
 
 # --
 
