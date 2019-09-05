@@ -51,19 +51,19 @@ def make_new_database(db_name):
   the tables.
   """
 
-  # a list of all the create table queries
+  # run through all the table creation queries
   create_queries = [create_info, create_ability_ref, create_abilities, create_artists, create_colors, create_costs, create_dates, create_images, create_legality_ref, create_formats, create_layouts, create_rarity, create_set_ref, create_sets, create_type_ref, create_types, create_artist_ref, create_artists, create_stats]
 
-  # run through all the table creation queries
   for query in create_queries:
     run_db_query(db_name, query)
 
-  # 
+  # run through the queries that populate tables
   populate_queries = []
 
   for query in populate_queries:
-    run_db_query(db, query)
+    run_db_query(db_name, query)
 
+  # return out
   return
 
 # # --------------------------------------------------------
