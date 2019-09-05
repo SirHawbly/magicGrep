@@ -6,9 +6,22 @@
 # # -- IMPORTS ---------------------------------------------
 # # --------------------------------------------------------
 
+# the sql library
 import sqlite3
 
-from global_variables import *
+# TODO - look into using 'sqlcipher'
+# # http://charlesleifer.com/blog/encrypted-sqlite-databases-with-python-and-sqlcipher/
+
+# import the info table
+from global_variables import create_info
+
+# import the reference tables
+from global_variables import create_ability_ref, create_abilities,  create_artist_ref, create_artists, create_legality_ref, create_formats, create_set_ref, create_sets, create_type_ref, create_types
+
+# import the singlular tables
+from global_variables import create_colors, create_costs, create_dates, create_images, create_layouts, create_rarity, create_artist_ref, create_stats
+
+from global_variables import color_identities
 
 # # --------------------------------------------------------
 # # -- IMPORTS -----------------------------------------
@@ -16,27 +29,6 @@ from global_variables import *
 
 # # -- DATABASE FUNCTIONS ----------------------------------
 # # --------------------------------------------------------
-
-def make_db(db_name, data_obj):
-  """
-  Creates a test table in the database 'scry.db'.
-  """
-
-  connection = sqlite3.connect('scry.db')
-  cursor = connection.cursor()
-
-  table_string = """
-  CREATE TABLE test (
-    num INTEGER PRIMARY KEY, 
-    type STRING);
-    """
-
-  cursor.execute(table_string)
-
-  connection.commit()
-  connection.close()
-
-# ----------------------------------------------------------
 
 def run_db_query(db_name, query):
   """
@@ -53,21 +45,18 @@ def run_db_query(db_name, query):
 
 # ----------------------------------------------------------
 
-def make_new_database():
+def make_new_database(db_name):
   """
   Run through all of the create table functions, as well as populate several of
   the tables.
   """
 
-  # name of the database that we are going to create
-  db = 'scry.db'
-
   # a list of all the create table queries
-  create_queries = [create_info, create_ability_ref, create_abilities, create_artists, create_colors, create_costs, create_dates, create_images, create_legality_ref, create_formats, create_layouts, create_rarity, create_set_reference, create_sets, create_type_ref, create_types, create_artist_ref, create_artists, create_stats]
+  create_queries = [create_info, create_ability_ref, create_abilities, create_artists, create_colors, create_costs, create_dates, create_images, create_legality_ref, create_formats, create_layouts, create_rarity, create_set_ref, create_sets, create_type_ref, create_types, create_artist_ref, create_artists, create_stats]
 
   # run through all the table creation queries
   for query in create_queries:
-    run_db_query(db, query)
+    run_db_query(db_name, query)
 
   # 
   populate_queries = []
@@ -76,7 +65,6 @@ def make_new_database():
     run_db_query(db, query)
 
   return
-
 
 # # --------------------------------------------------------
 # # -- DATABASE FUNCTIONS ----------------------------------
@@ -90,7 +78,7 @@ if (__name__ == '__main__'):
   do the things
   """
 
-  make_new_database()
+  # make_new_database('scry.db')
 
   print(len(color_identities))
 

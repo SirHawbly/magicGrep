@@ -75,7 +75,7 @@ create_formats = """
 
 
 # CREATE CARD SET TABLES STRING - check
-create_set_reference = """
+create_set_ref = """
   CREATE TABLE CardSetReference (
     id INTEGER, 
     set_id INTEGER

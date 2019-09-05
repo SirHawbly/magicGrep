@@ -1,3 +1,4 @@
+
 # -- MAIN FILE ---------------------------------------------
 # ----------------------------------------------------------
 
@@ -5,9 +6,8 @@
 # # -- IMPORTS ---------------------------------------------
 # # --------------------------------------------------------
 
-import os, sys
-import json
-from parse_database import make_db
+import os, sys, json
+from parse_database import make_new_database
 from global_variables import selected_fields, all_fields
 
 # # --------------------------------------------------------
@@ -38,8 +38,7 @@ def load_json_obj(jsonFile, jsonObj):
       
       # add the card to the jsonObj with the key being its 
       # name
-      if (jsonLine['reprint']):
-        jsonObj[jsonLine['name']] = jsonLine
+      jsonObj[jsonLine['id']] = jsonLine
 
       # load the json cards, print their names
       # inCard = json.loads(jsonLine)
@@ -64,7 +63,9 @@ def load_json_obj(jsonFile, jsonObj):
     for key in jsonObj:
       print(key)
 
-  print('json item lines: {}'.format(len(jsonObj)))
+  print('\n', jsonObj['eaa8f485-0f3d-4a0b-bcdf-6c27d1d2bce0'])
+
+  print('\njson item lines: {}'.format(len(jsonObj)))
 
 # # --------------------------------------------------------
 
@@ -112,12 +113,12 @@ def main():
     print("\nError 1:\npython3 parse.py deck scry-list")
 
   # figure out if we need to make a new database
-  if True:
-    make_db('asdf', ['asdf'])
+  if False:
+    make_new_database('scry.db')
 
   # if we have a source file that is newer than the DB or
   # a no DB file, we need to generate one.
-  if (False): 
+  if (True): 
     load_json_obj(sys.argv[2], jsonObj)
 
   # load the deck lines.
