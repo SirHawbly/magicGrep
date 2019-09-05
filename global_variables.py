@@ -1,7 +1,9 @@
+
 # -- DATABASE SCRIPTS --------------------------------------
 # ----------------------------------------------------------
 
-# # -- CREATE INFO TABLE -----------------------------------
+
+# # -- CREATE GENERAL INFO TABLE ---------------------------
 # # --------------------------------------------------------
 
 # CREATE CARD INFO TABLE STRING - check
@@ -20,10 +22,12 @@ create_info = """
     );"""
 # --
 
+# # --------------------------------------------------------
+# # -- CREATE GENERAL INFO TABLE ---------------------------
+
 
 # # -- CREATE REFERENCE TABLE PAIRS ------------------------
 # # --------------------------------------------------------
-
 
 # CREATE CARD ABILITY TABLES STRINGS - check
 create_ability_ref = """
@@ -100,10 +104,12 @@ create_types = """
     );"""
 # --
 
+# # --------------------------------------------------------
+# # -- CREATE REFERENCE TABLE PAIRS ------------------------
+
 
 # # -- CREATE SINGLE TABLES --------------------------------
 # # --------------------------------------------------------
-
 
 # CREATE CARD COLOR TABLE STRING - check
 create_colors = """
@@ -175,14 +181,12 @@ create_stats = """
     );"""
 # --
 
+# # --------------------------------------------------------
+# # -- DATABASE SCRIPTS ------------------------------------
 
-# ----------------------------------------------------------
-# -- DATABASE SCRIPTS END ----------------------------------
 
-
-# -- OTHER GLOBAL VARIABLES --------------------------------
-# ----------------------------------------------------------
-
+# # -- COLOR IDENTITIES ------------------------------------
+# # --------------------------------------------------------
 
 # ALL COLOR IDENTITIES
 color_identities = {
@@ -232,6 +236,27 @@ color_identities = {
   "Domain": ["W", "U", "B", "R", "G"],
 }
 
+# # --------------------------------------------------------
+# # -- COLOR IDENTITIES ------------------------------------
+
+
+# # -- JSON FILE FIELDS ------------------------------------
+# # --------------------------------------------------------
+
+selected_fields = ['id', 'oracle_id', 'layout', 'released_at', 'image_uris', 'mana_cost', 'cmc', 'colors', 'color_identity', 'name', 'type_line', 'oracle_text', 'power', 'toughness', 'legalities', 'set', 'set_name', 'reprint', 'artist', 'rarity', 'lang']
+
+all_fields = ['id', 'multiverse_ids', 'tcgplayer_id', 'uri' , 'scryfall_uri' , 'highres_image', 'games', 'reserved', 'foil', 'nonfoil', 'oversized', 'promo', 'set_uri', 'set_search_uri', 'scryfall_set_uri', 'rulings_uri', 'prints_search_uri', 'collector_number', 'digital', 'illustration_id', 'border_color', 'frame', 'frame_effect', 'full_art', 'story_spotlight', 'related_uris']
+
+# # --------------------------------------------------------
+# # -- JSON FILE FIELDS ------------------------------------
+
+
+# # --------------------------------------------------------
+# # -- OTHER GLOBAL VARIABLES ------------------------------
+
+# # -- OTHER GLOBAL VARIABLES ------------------------------
+# # --------------------------------------------------------
+
 
 # ----------------------------------------------------------
-# -- END ---------------------------------------------------
+# -- END OF FILE -------------------------------------------

@@ -1,18 +1,21 @@
-# --
+# -- MAIN FILE ---------------------------------------------
+# ----------------------------------------------------------
+
+
+# # -- IMPORTS ---------------------------------------------
+# # --------------------------------------------------------
 
 import os, sys
 import json
 from parse_database import make_db
+from global_variables import selected_fields, all_fields
 
-# --
+# # --------------------------------------------------------
+# # -- IMPORTS ---------------------------------------------
 
 
-selected_fields = ['id', 'oracle_id', 'layout', 'released_at', 'image_uris', 'mana_cost', 'cmc', 'colors', 'color_identity', 'name', 'type_line', 'oracle_text', 'power', 'toughness', 'legalities', 'set', 'set_name', 'reprint', 'artist', 'rarity', 'lang']
-
-all_fields = ['id', 'multiverse_ids', 'tcgplayer_id', 'uri' , 'scryfall_uri' , 'highres_image', 'games', 'reserved', 'foil', 'nonfoil', 'oversized', 'promo', 'set_uri', 'set_search_uri', 'scryfall_set_uri', 'rulings_uri', 'prints_search_uri', 'collector_number', 'digital', 'illustration_id', 'border_color', 'frame', 'frame_effect', 'full_art', 'story_spotlight', 'related_uris']
-
-# --
-
+# # -- FILE LOADING FUNCTIONS ------------------------------
+# # --------------------------------------------------------
 
 # loop through the jsonFile, pulling all lines that have a 
 # name matching one in the deckFile.
@@ -63,8 +66,7 @@ def load_json_obj(jsonFile, jsonObj):
 
   print('json item lines: {}'.format(len(jsonObj)))
 
-# --
-
+# # --------------------------------------------------------
 
 # loop through the jsonFile, pulling all lines that have a 
 # name matching one in the deckFile.
@@ -90,12 +92,15 @@ def load_deck_obj(deckFile, deckObj):
     
     return 
 
+# # --------------------------------------------------------
+# # -- FILE LOADING FUNCTIONS ------------------------------
 
-# --
 
+# # -- MAIN FUNCTION ---------------------------------------
+# # --------------------------------------------------------
 
 # main function
-if (__name__ == '__main__'):
+def main():
   """
   """
 
@@ -119,5 +124,18 @@ if (__name__ == '__main__'):
   if (False):
     load_deck_obj(sys.argv[1], deckObj)
 
+# # --------------------------------------------------------
 
-# --
+# main
+if (__name__ == '__main__'):
+  """
+  """
+
+  main()
+
+# # --------------------------------------------------------
+# # -- MAIN FUNCTION ---------------------------------------
+
+
+# ----------------------------------------------------------
+# -- END OF FILE -------------------------------------------
