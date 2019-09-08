@@ -13,6 +13,7 @@ create_info = """
     id INTEGER NOT NULL PRIMARY KEY,
     reprinted BOOLEAN,
     lang CHAR(16),
+    loyalty CHAR(2),
     color_id INTEGER REFERENCES CardColors(color_id),
     cost_id INTEGER REFERENCES CardCosts(cost_id),
     date_id INTEGER REFERENCES CardDates(date_id),
