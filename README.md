@@ -1,0 +1,2 @@
+# magicGrep
+greps the cards
