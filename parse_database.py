@@ -24,7 +24,7 @@ from global_variables import create_colors, create_costs, create_dates, create_i
 from global_variables import color_identities
 
 # # --------------------------------------------------------
-# # -- IMPORTS -----------------------------------------
+# # -- IMPORTS ---------------------------------------------
 
 
 # # -- DATABASE FUNCTIONS ----------------------------------

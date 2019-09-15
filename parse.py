@@ -33,13 +33,41 @@ def load_json_obj(jsonFile, jsonObj):
     # load the file into the json parser.
     jsonLoadedItem = json.load(jsonItem)
 
+    types = []
+
     # add all of the lines in the jsonObj.
     for jsonLine in jsonLoadedItem:
       
+      # Skip funny cards
+      if 'set_type' in jsonLine and jsonLine['set_type'] == 'funny':
+        continue
+
+      # skip all reprinted entries
+      if jsonLine['reprint'] == True:
+        continue
+
+      # skip all non-english entries
+      if jsonLine['lang'] != 'en':
+        continue
+
       # add the card to the jsonObj with the key being its 
       # name
       jsonObj[jsonLine['id']] = jsonLine
 
+      type_str = ""
+
+      for t in jsonLine['type_line'].split(' '):
+        
+        # print('->', t, t == "—")
+        if (t == '—'):
+          break    
+
+        type_str += t + " "
+
+      if type_str not in types:
+        types += [type_str]
+
+        
       # load the json cards, print their names
       # inCard = json.loads(jsonLine)
       # print(jsonLine)
@@ -59,11 +87,14 @@ def load_json_obj(jsonFile, jsonObj):
         # print(key, end=', ')
         # print(key, ' =\t\t', jsonLine[key])
       # print()
+    
+    for t in types:
+      print(t)
 
-    for key in jsonObj:
-      print(key)
+    # for key in jsonObj:
+      # print(key)
 
-  print('\n', jsonObj['eaa8f485-0f3d-4a0b-bcdf-6c27d1d2bce0'])
+  # print('\n', jsonObj['eaa8f485-0f3d-4a0b-bcdf-6c27d1d2bce0'])
 
   print('\njson item lines: {}'.format(len(jsonObj)))
 

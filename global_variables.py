@@ -246,7 +246,9 @@ color_identities = {
 
 selected_fields = ['id', 'oracle_id', 'layout', 'released_at', 'image_uris', 'mana_cost', 'cmc', 'colors', 'color_identity', 'name', 'type_line', 'oracle_text', 'power', 'toughness', 'legalities', 'set', 'set_name', 'reprint', 'artist', 'rarity', 'lang']
 
-all_fields = ['id', 'multiverse_ids', 'tcgplayer_id', 'uri' , 'scryfall_uri' , 'highres_image', 'games', 'reserved', 'foil', 'nonfoil', 'oversized', 'promo', 'set_uri', 'set_search_uri', 'scryfall_set_uri', 'rulings_uri', 'prints_search_uri', 'collector_number', 'digital', 'illustration_id', 'border_color', 'frame', 'frame_effect', 'full_art', 'story_spotlight', 'related_uris']
+needed_fields = ['object', 'id', 'oracle_id', 'name', 'released_at', 'scryfall_uri', 'layout', 'mana_cost', 'cmc', 'type_line', 'oracle_text', 'power', 'toughness', 'colors', 'color_identity', 'legalities', 'set', 'set_name', 'set_type', 'rarity', 'loyalty']
+
+all_fields = ['object', 'id', 'oracle_id', 'multiverse_ids', 'name', 'lang', 'released_at', 'uri', 'scryfall_uri', 'layout', 'highres_image', 'image_uris', 'mana_cost', 'cmc', 'type_line', 'oracle_text', 'power', 'toughness', 'colors', 'color_identity', 'legalities', 'games', 'reserved', 'foil', 'nonfoil', 'oversized', 'promo', 'reprint', 'variation', 'set', 'set_name', 'set_type', 'set_uri', 'set_search_uri', 'scryfall_set_uri', 'rulings_uri', 'prints_search_uri', 'collector_number', 'digital', 'rarity', 'card_back_id', 'artist', 'artist_ids', 'illustration_id', 'border_color', 'frame', 'full_art', 'textless', 'booster', 'story_spotlight', 'edhrec_rank', 'related_uris', 'frame_effects', 'preview', 'card_faces', 'flavor_text', 'loyalty', 'all_parts', 'tcgplayer_id', 'promo_types', 'mtgo_id', 'frame_effect', 'watermark', 'arena_id', 'variation_of', 'color_indicator', 'printed_name', 'printed_type_line', 'printed_text', 'mtgo_foil_id', 'life_modifier', 'hand_modifier']
 
 # # --------------------------------------------------------
 # # -- JSON FILE FIELDS ------------------------------------
