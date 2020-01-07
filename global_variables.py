@@ -4,7 +4,7 @@
 
 
 # # -- CREATE GENERAL INFO TABLE ---------------------------
-# # --------------------------------------------------------
+# # -------------------------------------------------------- 
 
 # CREATE CARD INFO TABLE STRING - check
 create_info = """
@@ -105,22 +105,37 @@ create_types = """
     );"""
 # --
 
+
+# TODO IMPLEMENT ALL THIS
+# CREATE CARD COLOR TABLES
+create_color_names = """
+  CREATE TABLE CardIdentities (
+    color_identity_id INTEGER NOT NULL PRIMARY KEY,
+    color_identity_name CHAR(11),
+    );"""
+
+# CREATE CARD COLOR TABLE STRING - check
+create_color_ref = """
+  CREATE TABLE CardColorReference (
+    color_identity_id REFERENCES CardColorNames(color_name_id),
+    color_id REFERENCES CardColors(color_id),
+    );"""
+
+# CREATE CARD COLOR TABLE STRING - check
+create_colors = """
+  CREATE TABLE CardColors (
+    color_id INTEGER NOT NULL PRIMARY KEY,
+    color_name CHAR(10),
+    color CHAR(1)
+    );"""
+# --
+
 # # --------------------------------------------------------
 # # -- CREATE REFERENCE TABLE PAIRS ------------------------
 
 
 # # -- CREATE SINGLE TABLES --------------------------------
 # # --------------------------------------------------------
-
-# CREATE CARD COLOR TABLE STRING - check
-create_colors = """
-  CREATE TABLE CardColors 
-    color_id INTEGER NOT NULL PRIMARY KEY,
-    identity_name CHAR(20),
-    colors CHAR(5)
-    );"""
-# --
-
 
 # CREATE CARD COST TABLE STRING - check
 create_costs = """
@@ -178,7 +193,8 @@ create_stats = """
   CREATE TABLE CardStats (
     stats_id INTEGER PRIMARY KEY,
     power CHAR(3),
-    toughness CHAR(3)
+    toughness CHAR(3),
+    loyalty CHAR(3),
     );"""
 # --
 
@@ -188,6 +204,17 @@ create_stats = """
 
 # # -- COLOR IDENTITIES ------------------------------------
 # # --------------------------------------------------------
+
+# ALL BASE CARD COLORS
+card_colors = {
+
+  "Colorless": "C",
+  "Red": "R",
+  "Black": "B",
+  "Blue": "U",
+  "Green": "G",
+  "White": "W",
+}
 
 # ALL COLOR IDENTITIES
 color_identities = {
@@ -254,11 +281,68 @@ all_fields = ['object', 'id', 'oracle_id', 'multiverse_ids', 'name', 'lang', 're
 # # -- JSON FILE FIELDS ------------------------------------
 
 
+# # -- POPULATE TABLES -------------------------------------
 # # --------------------------------------------------------
-# # -- OTHER GLOBAL VARIABLES ------------------------------
+
+fill_card_colors = []
+fill_card_color_reference = []
+fill_card_color_identities = []
+
+# Function that fills the top three variables
+def populate_colors():
+  """
+  """
+  
+  """
+    CREATE TABLE CardColors 
+      color_id INTEGER NOT NULL PRIMARY KEY,
+      color_name CHAR(10),
+      color CHAR(1)
+
+    CREATE TABLE CardIdentities 
+      color_identity_id INTEGER NOT NULL PRIMARY KEY,
+      color_identity_name CHAR(11),
+
+    CREATE TABLE CardColorReference
+      color_identity_id REFERENCES CardColorNames(color_name_id),
+      color_id REFERENCES CardColors(color_id),
+  """
+
+  # { "Colorless": "C", ... }
+  for  color_key, i in zip(card_colors, range(0, len(card_colors))):
+    fill_card_colors += ["""
+      INSERT INTO CardColors (color_id, color_name, color)
+        VALUES (%d, %d, %d);""", i, color_key, card_colors[color_key]]
+    
+    # { "Sultai": ["G", "B", "U"], ... }
+  for  color_identity_key, i in zip(card_colors, range(0, len(color_identities))):
+      fill_card_color_identities += ["""
+        INSERT INTO CardColorIdentities (color_identity_id, color_identity_name)
+          VALUES (%d, %d);""", i, color_identity_key]
+
+  return
+
+
+# # --------------------------------------------------------
+# # -- POPULATE TABLES -------------------------------------
+
+
+# # -- GLOBALS ---------------------------------------------
+# # --------------------------------------------------------
+
+create_queries = [create_info, create_ability_ref, create_abilities, create_artists, create_colors, create_costs, create_dates, create_images, create_legality_ref, create_formats, create_layouts, create_rarity, create_set_ref, create_sets, create_type_ref, create_types, create_artist_ref, create_artists, create_stats]
+
+populate_queries = [populate_colors]
+
+# # --------------------------------------------------------
+# # -- GLOBALS ---------------------------------------------
+
 
 # # -- OTHER GLOBAL VARIABLES ------------------------------
 # # --------------------------------------------------------
+
+# # --------------------------------------------------------
+# # -- OTHER GLOBAL VARIABLES ------------------------------
 
 
 # ----------------------------------------------------------

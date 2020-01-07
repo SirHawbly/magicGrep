@@ -23,6 +23,8 @@ from global_variables import create_colors, create_costs, create_dates, create_i
 
 from global_variables import color_identities
 
+from global_variables import create_queries, populate_queries
+
 # # --------------------------------------------------------
 # # -- IMPORTS ---------------------------------------------
 
@@ -52,14 +54,10 @@ def make_new_database(db_name):
   """
 
   # run through all the table creation queries
-  create_queries = [create_info, create_ability_ref, create_abilities, create_artists, create_colors, create_costs, create_dates, create_images, create_legality_ref, create_formats, create_layouts, create_rarity, create_set_ref, create_sets, create_type_ref, create_types, create_artist_ref, create_artists, create_stats]
-
   for query in create_queries:
     run_db_query(db_name, query)
 
   # run through the queries that populate tables
-  populate_queries = []
-
   for query in populate_queries:
     run_db_query(db_name, query)
 

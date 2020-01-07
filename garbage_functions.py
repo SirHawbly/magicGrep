@@ -142,6 +142,11 @@ if (__name__ == '__main__'):
   """
   """
 
+  """
+  INSERT INTO column_1 ( val_1, val_from_other_table ) 
+    VALUES('val_1', (SELECT  val_2 FROM table_2 WHERE val_2 = something))
+  """
+
   main()
 
 # # --------------------------------------------------------
