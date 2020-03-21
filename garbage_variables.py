@@ -150,10 +150,6 @@ AbilityText = {'name':'AbilityText', 'type':'char', 'length':'500', 'not_null':F
     'primary':False, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
 
-Attack = {'name':'Attack', 'type':'char', 'length':'10', 'not_null':False,
-    'primary':False, 'reference':False, 'ref_table':'', 
-    'ref_variable':''}
-
 CardName = {'name':'Name', 'type':'char', 'length':'100', 'not_null':True,
     'primary':False, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
@@ -183,6 +179,10 @@ ManaColorSymbol = {'name':'ColorSymbol', 'type':'char', 'length':'1', 'not_null'
     'ref_variable':''}
 
 ManaCost = {'name':'ManaCost', 'type':'char', 'length':'20', 'not_null':True,
+    'primary':False, 'reference':False, 'ref_table':'', 
+    'ref_variable':''}
+
+Power = {'name':'Power', 'type':'char', 'length':'10', 'not_null':False,
     'primary':False, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
 
@@ -232,7 +232,7 @@ CardCostsTable = create_table_query('CardCosts',
     [CostID, ManaCost, ColorIdentityRefID, ConvertedManaCost])
 
 CardStatsTable = create_table_query('CardStats', 
-    [StatID, Loyalty, Attack, Toughness])
+    [StatID, Loyalty, Power, Toughness])
 
 # Print out all of the tables above for testing
 for i in [CardInfoTable, AbilityRefTable, AbilitiesTable, TypeRefTable, TypesTable,  
