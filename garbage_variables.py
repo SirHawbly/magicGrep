@@ -150,11 +150,11 @@ AbilityText = {'name':'AbilityText', 'type':'char', 'length':'500', 'not_null':F
     'primary':False, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
 
-CardName = {'name':'Name', 'type':'char', 'length':'100', 'not_null':True,
+CardName = {'name':'CardName', 'type':'char', 'length':'100', 'not_null':True,
     'primary':False, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
 
-ColorIdentityText = {'name':'ColorIdentityText', 'type':'char', 'length':'500', 'not_null':True,
+ColorIdentityName = {'name':'ColorIdentityName', 'type':'char', 'length':'500', 'not_null':True,
     'primary':False, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
 
@@ -201,113 +201,113 @@ TypeText = {'name':'TypeText', 'type':'char', 'length':'500', 'not_null':True,
 # # -- DATABASE QUERIES ------------------------------------
 # # --------------------------------------------------------
 
-CardInfoTable = create_table_query('CardInformation', 
-   [CardID, CardName, CostRefID, StatsRefID, LayoutRefID, ColorIdentityRefID])
+TableCreationQueries = []
 
-AbilityRefTable = create_table_query('AbilityReference', 
-    [CardRefID, AbilityRefID])
+CardInfoTable = create_table_query('CardInformation', [CardID, CardName, CostRefID, StatsRefID, LayoutRefID, ColorIdentityRefID])
+TableCreationQueries += [CardInfoTable, ]
 
-AbilitiesTable = create_table_query('CardAbilities', 
-    [AbilityID, AbilityText])
+AbilityRefTable = create_table_query('AbilityReference', [CardRefID, AbilityRefID])
+TableCreationQueries += [AbilityRefTable, ]
 
-TypeRefTable = create_table_query('TypeReference', 
-   [CardRefID, TypeRefID])
+AbilitiesTable = create_table_query('CardAbilities', [AbilityID, AbilityText])
+TableCreationQueries += [AbilitiesTable, ]
 
-TypesTable = create_table_query('CardTypes', 
-    [TypeID, TypeText])
+TypeRefTable = create_table_query('TypeReference', [CardRefID, TypeRefID])
+TableCreationQueries += [TypeRefTable, ]
 
-ColorIdentityTable = create_table_query('ColorIdentity', 
-    [ColorIdentityID, ColorIdentityText])
+TypesTable = create_table_query('CardTypes', [TypeID, TypeText])
+TableCreationQueries += [TypesTable, ]
 
-ManaColorRefTable = create_table_query('ManaColorReference', 
-    [ColorIdentityRefID, ManaColorRefID])
+ColorIdentityTable = create_table_query('ColorIdentity', [ColorIdentityID, ColorIdentityName])
+TableCreationQueries += [ColorIdentityTable, ]
 
-ManaColorsTable = create_table_query('ManaColors', 
-    [ManaColorID, ManaColorName, ManaColorSymbol])
+ManaColorRefTable = create_table_query('ManaColorReference', [ColorIdentityRefID, ManaColorRefID])
+TableCreationQueries += [ManaColorRefTable, ]
 
-CardLayoutsTable = create_table_query('CardLayouts', 
-    [LayoutID, LayoutName])
+ManaColorsTable = create_table_query('ManaColors', [ManaColorID, ManaColorName, ManaColorSymbol])
+TableCreationQueries += [ManaColorsTable, ]
 
-CardCostsTable = create_table_query('CardCosts', 
-    [CostID, ManaCost, ColorIdentityRefID, ConvertedManaCost])
+CardLayoutsTable = create_table_query('CardLayouts', [LayoutID, LayoutName])
+TableCreationQueries += [CardLayoutsTable, ]
 
-CardStatsTable = create_table_query('CardStats', 
-    [StatID, Loyalty, Power, Toughness])
+CardCostsTable = create_table_query('CardCosts', [CostID, ManaCost, ColorIdentityRefID, ConvertedManaCost])
+TableCreationQueries += [CardCostsTable, ]
+
+CardStatsTable = create_table_query('CardStats', [StatID, Loyalty, Power, Toughness])
+TableCreationQueries += [CardStatsTable, ]
 
 # Print out all of the tables above for testing
-for i in [CardInfoTable, AbilityRefTable, AbilitiesTable, TypeRefTable, TypesTable,  
-    ColorIdentityTable, ManaColorRefTable, ManaColorsTable, CardLayoutsTable, 
-    CardCostsTable, CardStatsTable]:
+for i in TableCreationQueries:
   print(i, '\n')
 
 # # --------------------------------------------------------
 # # -- DATABASE QUERIES ------------------------------------
 
 
-# # -- COLOR IDENTITIES ------------------------------------
+# # -- COLOR VALUES ----------------------------------------
 # # --------------------------------------------------------
 
 # ALL BASE CARD COLORS
-card_colors = {
+CardColors = [
 
-  "Colorless": "C",
-  "Red": "R",
-  "Black": "B",
-  "Blue": "U",
-  "Green": "G",
-  "White": "W",
-}
+  {'name':'Colorless', 'colorid':1, 'symbol':'C'},
+  {'name':'Red', 'colorid':2, 'symbol':'R'},
+  {'name':'Black', 'colorid':3, 'symbol':'B'},
+  {'name':'Blue', 'colorid':4, 'symbol':'U'},
+  {'name':'Green', 'colorid':5, 'symbol':'G'},
+  {'name':'White', 'colorid':6, 'symbol':'W'}
+]
 
 # ALL COLOR IDENTITIES
-color_identities = {
+ColorIdentities = [
 
   # 0 color
-  "Colorless": ["C"],
+  {'identityname':"Colorless", 'identityid':1, 'colors':["C"]},
 
   # 1 color
-  "Mono Red": ["R"],
-  "Mono Black": ["B"],
-  "Mono Blue": ["U"],
-  "Mono Green": ["G"],
-  "Mono White": ["W"],
+  {'identityname':"Mono Red", 'identityid':2, 'colors':["R"]},
+  {'identityname':"Mono Black", 'identityid':3, 'colors':["B"]},
+  {'identityname':"Mono Blue", 'identityid':4, 'colors':["U"]},
+  {'identityname':"Mono Green", 'identityid':5, 'colors':["G"]},
+  {'identityname':"Mono White", 'identityid':6, 'colors':["W"]},
   
   # 2 color
-  "Azorius": ["W", "U"],
-  "Dimir": ["U", "B"],
-  "Rakdos": ["B", "R"],
-  "Gruul": ["R", "G"],
-  "Selesnya": ["G", "W"],
-  "Orzhov": ["W", "B"],
-  "Izzet": ["U", "R"],
-  "Golgari": ["B", "G"],
-  "Boros": ["R", "W"],
-  "Simic": ["G", "U"],
+  {'identityname':"Azorius", 'identityid':7, 'colors':["W", "U"]},
+  {'identityname':"Dimir", 'identityid':8, 'colors':["U", "B"]},
+  {'identityname':"Rakdos", 'identityid':9, 'colors':["B", "R"]},
+  {'identityname':"Gruul", 'identityid':10, 'colors':["R", "G"]},
+  {'identityname':"Selesnya", 'identityid':11, 'colors':["G", "W"]},
+  {'identityname':"Orzhov", 'identityid':12, 'colors':["W", "B"]},
+  {'identityname':"Izzet", 'identityid':13, 'colors':["U", "R"]},
+  {'identityname':"Golgari", 'identityid':14, 'colors':["B", "G"]},
+  {'identityname':"Boros", 'identityid':15, 'colors':["R", "W"]},
+  {'identityname':"Simic", 'identityid':16, 'colors':["G", "U"]},
 
   # 3 color
-  "Jund": ["R", "G", "B"],
-  "Bant": ["W", "G", "U"],
-  "Grixis": ["B", "R", "U"],
-  "Naya": ["G", "W", "R"],
-  "Esper": ["U", "W", "B"],
-  "Jeskai": ["W", "U", "R"],
-  "Mardu": ["B", "W", "R"],
-  "Sultai": ["G", "B", "U"],
-  "Temur": ["G", "U", "R"],
-  "Abzan": ["G", "W", "B"],
+  {'identityname':"Jund", 'identityid':17, 'colors':["R", "G", "B"]},
+  {'identityname':"Bant", 'identityid':18, 'colors':["W", "G", "U"]},
+  {'identityname':"Grixis", 'identityid':19, 'colors':["B", "R", "U"]},
+  {'identityname':"Naya", 'identityid':20, 'colors':["G", "W", "R"]},
+  {'identityname':"Esper", 'identityid':21, 'colors':["U", "W", "B"]},
+  {'identityname':"Jeskai", 'identityid':22, 'colors':["W", "U", "R"]},
+  {'identityname':"Mardu", 'identityid':23, 'colors':["B", "W", "R"]},
+  {'identityname':"Sultai", 'identityid':24, 'colors':["G", "B", "U"]},
+  {'identityname':"Temur", 'identityid':25, 'colors':["G", "U", "R"]},
+  {'identityname':"Abzan", 'identityid':26, 'colors':["G", "W", "B"]},
 
   # 4 color
-  "Chaos": ["U", "R", "B", "G"],
-  "Aggression": ["W", "R", "B", "G"],
-  "Altruism": ["U", "W", "R", "G"],
-  "Growth": ["U", "W", "B", "G"],
-  "Artifice": ["U", "W", "R", "B"],
+  {'identityname':"Chaos", 'identityid':27, 'colors':["U", "R", "B", "G"]},
+  {'identityname':"Aggression", 'identityid':28, 'colors':["W", "R", "B", "G"]},
+  {'identityname':"Altruism", 'identityid':29, 'colors':["U", "W", "R", "G"]},
+  {'identityname':"Growth", 'identityid':30, 'colors':["U", "W", "B", "G"]},
+  {'identityname':"Artifice", 'identityid':31, 'colors':["U", "W", "R", "B"]},
 
   # 5 color
-  "Domain": ["W", "U", "B", "R", "G"],
-}
+  {'identityname':"Domain", 'identityid':32, 'colors':["W", "U", "B", "R", "G"]},
+]
 
 # # --------------------------------------------------------
-# # -- COLOR IDENTITIES ------------------------------------
+# # -- COLOR VALUES ----------------------------------------
 
 
 # # -- JSON FILE FIELDS ------------------------------------
@@ -326,17 +326,90 @@ all_fields = ['object', 'id', 'oracle_id', 'multiverse_ids', 'name', 'lang', 're
 # # -- POPULATE TABLES -------------------------------------
 # # --------------------------------------------------------
 
-fill_card_colors = []
-fill_card_color_reference = []
-fill_card_color_identities = []
-
 # Function that fills the top three variables
-def populate_colors():
+def PopulateColorQuries():
   """
+  Generate a list of Insert Queries for every Mana color that is listed in the 
+  Mana Colors list, then add them to a returnable list.
+
+  Mana Color Table Definition
+  ManaColorsTable = create_table_query('ManaColors', [ManaColorID, ManaColorName, ManaColorSymbol])
+  
+  Mana Colors List
+  CardColors = [ {'name':'Colorless', 'colorid':1, 'symbol':'C'}, ...]
   """
   
-  return
+  PopulateList = []
+  
+  for Color in CardColors:
 
+    Query = 'INSERT INTO ManaColors ({}, {}, {})'.format(ManaColorName['name'], ManaColorID['name'], ManaColorSymbol['name'])
+
+    Query += ' VALUES (\'{}\', {}, \'{}\')'.format(Color['name'], Color['colorid'], Color['symbol'])
+    
+    # print(Query, '\n')
+    PopulateList += [Query, ]
+
+  return PopulateList
+
+# # --------------------------------------------------------
+
+def PopulateColorIdentityQueries():
+  """
+  
+  Color Identity Table
+  ColorIdentityTable = create_table_query('ColorIdentity', [ColorIdentityID, ColorIdentityName])
+
+  Mana Colors List
+  CardColors = [ {'name':'Colorless', 'colorid':1, 'symbol':'C'}, ...]
+
+  Color Identities List Form
+  ColorIdentities = [ {'identityname':"Colorless", 'colors':["C"]}, ... ]
+  """
+
+  ColorIdentityQueries = []
+
+  for Identity in ColorIdentities:
+
+    Query = 'INSERT INTO ManaColors ({}, {}, {})'.format(ManaColorName['name'], ManaColorID['name'], ManaColorSymbol['name'])
+
+    Query += ' VALUES (\'{}\', {}, \'{}\')'.format(Color['name'], Color['colorid'], Color['symbol'])
+    
+    ColorIdentityQueries += [Query, ]
+
+  return ColorIdentityQueries
+
+# # --------------------------------------------------------
+
+def PopulateColorIdentityRefQueries():
+  """
+  
+  Color Reference Table
+  ManaColorRefTable = create_table_query('ManaColorReference', [ColorIdentityRefID, ManaColorRefID])
+
+  Mana Colors List
+  CardColors = [ {'name':'Colorless', 'colorid':1, 'symbol':'C'}, ...]
+
+  Color Identities List Form
+  ColorIdentities = [ {'identityname':"Colorless", 'identityid':1, 'colors':["C"]}, ... ]
+  """
+
+  ColorIdentityReferenceQueries = []
+
+  for Identity in ColorIdentities:
+
+    Query = 'INSERT INTO ManaColors ({}, {}, {})'.format(ManaColorName['name'], ManaColorID['name'], ManaColorSymbol['name'])
+
+    Query += ' VALUES (\'{}\', {}, \'{}\')'.format(Color['name'], Color['colorid'], Color['symbol'])
+
+    ColorIdentityReferenceQueries += [Query, ]
+
+  return ColorIdentityReferenceQueries
+
+# # --------------------------------------------------------
+
+FillCardColors = PopulateColorQuries()
+FillColorIdentities = PopulateColorIdentityQueries()
 
 # # --------------------------------------------------------
 # # -- POPULATE TABLES -------------------------------------
@@ -345,9 +418,7 @@ def populate_colors():
 # # -- GLOBALS ---------------------------------------------
 # # --------------------------------------------------------
 
-# create_queries = []
 
-# populate_queries = [populate_colors]
 
 # # --------------------------------------------------------
 # # -- GLOBALS ---------------------------------------------
@@ -358,6 +429,29 @@ def populate_colors():
 
 # # --------------------------------------------------------
 # # -- OTHER GLOBAL VARIABLES ------------------------------
+
+
+# # -- MAIN FUNCTION ---------------------------------------
+# # --------------------------------------------------------
+
+# main function
+def main():
+  """
+  """
+
+  return
+
+# # --------------------------------------------------------
+
+# main
+if (__name__ == '__main__'):
+  """
+  """
+
+  main()
+
+# # --------------------------------------------------------
+# # -- MAIN FUNCTION ---------------------------------------
 
 
 # ----------------------------------------------------------
