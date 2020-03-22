@@ -50,7 +50,7 @@ def create_table_query(table_name, table_item_list):
 
     # if the item is a primary key, then add that.
     if (item['primary'] and not item['reference']):
-      item_str += " PRIMARY KEY"
+      item_str += ' PRIMARY KEY'
 
     # If this is not the last in the list, dont need a comma
     if (item != table_item_list[-1]):
@@ -262,48 +262,48 @@ CardColors = [
 ColorIdentities = [
 
   # 0 color
-  {'identityname':"Colorless", 'identityid':1, 'colors':["C"]},
+  {'identityname':'Colorless', 'identityid':1, 'colors':['C']},
 
   # 1 color
-  {'identityname':"Mono Red", 'identityid':2, 'colors':["R"]},
-  {'identityname':"Mono Black", 'identityid':3, 'colors':["B"]},
-  {'identityname':"Mono Blue", 'identityid':4, 'colors':["U"]},
-  {'identityname':"Mono Green", 'identityid':5, 'colors':["G"]},
-  {'identityname':"Mono White", 'identityid':6, 'colors':["W"]},
+  {'identityname':'Mono Red', 'identityid':2, 'colors':['R']},
+  {'identityname':'Mono Black', 'identityid':3, 'colors':['B']},
+  {'identityname':'Mono Blue', 'identityid':4, 'colors':['U']},
+  {'identityname':'Mono Green', 'identityid':5, 'colors':['G']},
+  {'identityname':'Mono White', 'identityid':6, 'colors':['W']},
   
   # 2 color
-  {'identityname':"Azorius", 'identityid':7, 'colors':["W", "U"]},
-  {'identityname':"Dimir", 'identityid':8, 'colors':["U", "B"]},
-  {'identityname':"Rakdos", 'identityid':9, 'colors':["B", "R"]},
-  {'identityname':"Gruul", 'identityid':10, 'colors':["R", "G"]},
-  {'identityname':"Selesnya", 'identityid':11, 'colors':["G", "W"]},
-  {'identityname':"Orzhov", 'identityid':12, 'colors':["W", "B"]},
-  {'identityname':"Izzet", 'identityid':13, 'colors':["U", "R"]},
-  {'identityname':"Golgari", 'identityid':14, 'colors':["B", "G"]},
-  {'identityname':"Boros", 'identityid':15, 'colors':["R", "W"]},
-  {'identityname':"Simic", 'identityid':16, 'colors':["G", "U"]},
+  {'identityname':'Azorius', 'identityid':7, 'colors':['W', 'U']},
+  {'identityname':'Dimir', 'identityid':8, 'colors':['U', 'B']},
+  {'identityname':'Rakdos', 'identityid':9, 'colors':['B', 'R']},
+  {'identityname':'Gruul', 'identityid':10, 'colors':['R', 'G']},
+  {'identityname':'Selesnya', 'identityid':11, 'colors':['G', 'W']},
+  {'identityname':'Orzhov', 'identityid':12, 'colors':['W', 'B']},
+  {'identityname':'Izzet', 'identityid':13, 'colors':['U', 'R']},
+  {'identityname':'Golgari', 'identityid':14, 'colors':['B', 'G']},
+  {'identityname':'Boros', 'identityid':15, 'colors':['R', 'W']},
+  {'identityname':'Simic', 'identityid':16, 'colors':['G', 'U']},
 
   # 3 color
-  {'identityname':"Jund", 'identityid':17, 'colors':["R", "G", "B"]},
-  {'identityname':"Bant", 'identityid':18, 'colors':["W", "G", "U"]},
-  {'identityname':"Grixis", 'identityid':19, 'colors':["B", "R", "U"]},
-  {'identityname':"Naya", 'identityid':20, 'colors':["G", "W", "R"]},
-  {'identityname':"Esper", 'identityid':21, 'colors':["U", "W", "B"]},
-  {'identityname':"Jeskai", 'identityid':22, 'colors':["W", "U", "R"]},
-  {'identityname':"Mardu", 'identityid':23, 'colors':["B", "W", "R"]},
-  {'identityname':"Sultai", 'identityid':24, 'colors':["G", "B", "U"]},
-  {'identityname':"Temur", 'identityid':25, 'colors':["G", "U", "R"]},
-  {'identityname':"Abzan", 'identityid':26, 'colors':["G", "W", "B"]},
+  {'identityname':'Jund', 'identityid':17, 'colors':['R', 'G', 'B']},
+  {'identityname':'Bant', 'identityid':18, 'colors':['W', 'G', 'U']},
+  {'identityname':'Grixis', 'identityid':19, 'colors':['B', 'R', 'U']},
+  {'identityname':'Naya', 'identityid':20, 'colors':['G', 'W', 'R']},
+  {'identityname':'Esper', 'identityid':21, 'colors':['U', 'W', 'B']},
+  {'identityname':'Jeskai', 'identityid':22, 'colors':['W', 'U', 'R']},
+  {'identityname':'Mardu', 'identityid':23, 'colors':['B', 'W', 'R']},
+  {'identityname':'Sultai', 'identityid':24, 'colors':['G', 'B', 'U']},
+  {'identityname':'Temur', 'identityid':25, 'colors':['G', 'U', 'R']},
+  {'identityname':'Abzan', 'identityid':26, 'colors':['G', 'W', 'B']},
 
   # 4 color
-  {'identityname':"Chaos", 'identityid':27, 'colors':["U", "R", "B", "G"]},
-  {'identityname':"Aggression", 'identityid':28, 'colors':["W", "R", "B", "G"]},
-  {'identityname':"Altruism", 'identityid':29, 'colors':["U", "W", "R", "G"]},
-  {'identityname':"Growth", 'identityid':30, 'colors':["U", "W", "B", "G"]},
-  {'identityname':"Artifice", 'identityid':31, 'colors':["U", "W", "R", "B"]},
+  {'identityname':'Chaos', 'identityid':27, 'colors':['U', 'R', 'B', 'G']},
+  {'identityname':'Aggression', 'identityid':28, 'colors':['W', 'R', 'B', 'G']},
+  {'identityname':'Altruism', 'identityid':29, 'colors':['U', 'W', 'R', 'G']},
+  {'identityname':'Growth', 'identityid':30, 'colors':['U', 'W', 'B', 'G']},
+  {'identityname':'Artifice', 'identityid':31, 'colors':['U', 'W', 'R', 'B']},
 
   # 5 color
-  {'identityname':"Domain", 'identityid':32, 'colors':["W", "U", "B", "R", "G"]},
+  {'identityname':'Domain', 'identityid':32, 'colors':['W', 'U', 'B', 'R', 'G']},
 ]
 
 # # --------------------------------------------------------
@@ -347,7 +347,8 @@ def PopulateColorQuries():
 
     Query += ' VALUES (\'{}\', {}, \'{}\')'.format(Color['name'], Color['colorid'], Color['symbol'])
     
-    # print(Query, '\n')
+    print(Query, '\n')
+    
     PopulateList += [Query, ]
 
   return PopulateList
@@ -364,17 +365,19 @@ def PopulateColorIdentityQueries():
   CardColors = [ {'name':'Colorless', 'colorid':1, 'symbol':'C'}, ...]
 
   Color Identities List Form
-  ColorIdentities = [ {'identityname':"Colorless", 'colors':["C"]}, ... ]
+  ColorIdentities = [ {'identityname':'Colorless', 'identityid':1, 'colors':['C']}, ... ]
   """
 
   ColorIdentityQueries = []
 
   for Identity in ColorIdentities:
 
-    Query = 'INSERT INTO ManaColors ({}, {}, {})'.format(ManaColorName['name'], ManaColorID['name'], ManaColorSymbol['name'])
+    Query = 'INSERT INTO ColorIdentity ({}, {})'.format(ColorIdentityName['name'], ColorIdentityID['name'])
 
-    Query += ' VALUES (\'{}\', {}, \'{}\')'.format(Color['name'], Color['colorid'], Color['symbol'])
+    Query += ' VALUES (\'{}\', {})'.format(Identity['identityname'], Identity['identityid'])
     
+    print(Query, '\n')
+
     ColorIdentityQueries += [Query, ]
 
   return ColorIdentityQueries
@@ -391,18 +394,26 @@ def PopulateColorIdentityRefQueries():
   CardColors = [ {'name':'Colorless', 'colorid':1, 'symbol':'C'}, ...]
 
   Color Identities List Form
-  ColorIdentities = [ {'identityname':"Colorless", 'identityid':1, 'colors':["C"]}, ... ]
+  ColorIdentities = [ {'identityname':'Colorless', 'identityid':1, 'colors':['C']}, ... ]
   """
 
   ColorIdentityReferenceQueries = []
 
   for Identity in ColorIdentities:
 
-    Query = 'INSERT INTO ManaColors ({}, {}, {})'.format(ManaColorName['name'], ManaColorID['name'], ManaColorSymbol['name'])
+    for IdentityColor in Identity['colors']:
 
-    Query += ' VALUES (\'{}\', {}, \'{}\')'.format(Color['name'], Color['colorid'], Color['symbol'])
+      for ManaColor in CardColors:
+        
+        if (IdentityColor == ManaColor['symbol']):
 
-    ColorIdentityReferenceQueries += [Query, ]
+          Query = 'INSERT INTO ManaColorReference ({}, {})'.format(ColorIdentityRefID['name'], ManaColorRefID['name'])
+
+          Query += ' VALUES (\'{}\', {})'.format(Identity['identityid'], ManaColor['symbol'])
+
+          print(Query, '\n')
+
+          ColorIdentityReferenceQueries += [Query, ]
 
   return ColorIdentityReferenceQueries
 
@@ -410,6 +421,7 @@ def PopulateColorIdentityRefQueries():
 
 FillCardColors = PopulateColorQuries()
 FillColorIdentities = PopulateColorIdentityQueries()
+FillColorReferences = PopulateColorIdentityRefQueries()
 
 # # --------------------------------------------------------
 # # -- POPULATE TABLES -------------------------------------
