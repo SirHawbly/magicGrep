@@ -244,12 +244,6 @@ TableCreationQueries += [CardCostsTable, ]
 CardStatsTable = create_table_query('CardStats', [StatID, Loyalty, Power, Toughness])
 TableCreationQueries += [CardStatsTable, ]
 
-# Print out all of the tables above for testing
-for i in TableCreationQueries:
-  print(i, '\n')
-
-print('# --', '\n')
-
 # # --------------------------------------------------------
 # # -- DATABASE QUERIES ------------------------------------
 
@@ -355,7 +349,7 @@ def PopulateColorQuries():
 
     Query += ' VALUES (\'{}\', {}, \'{}\');'.format(Color['name'], Color['colorid'], Color['symbol'])
     
-    print(Query, '\n')
+    # print(Query, '\n')
     
     PopulateList += [Query, ]
 
@@ -385,7 +379,7 @@ def PopulateColorIdentityQueries():
 
     Query += ' VALUES (\'{}\', {});'.format(Identity['identityname'], Identity['identityid'])
     
-    print(Query, '\n')
+    # print(Query, '\n')
 
     ColorIdentityQueries += [Query, ]
 
@@ -425,7 +419,7 @@ def PopulateColorIdentityRefQueries():
 
           Query += ' VALUES (\'{}\', {});'.format(Identity['identityid'], ManaColor['colorid'])
 
-          print(Query, '\n')
+          # print(Query, '\n')
 
           ColorIdentityReferenceQueries += [Query, ]
 
@@ -464,13 +458,17 @@ def main():
   """
 
   FillCardColors = PopulateColorQuries()
-  print('# --', '\n')
   FillColorIdentities = PopulateColorIdentityQueries()
-  print('# --', '\n')
   FillColorReferences = PopulateColorIdentityRefQueries()
-  print('# --', '\n')
 
-  print('BLAH', len(FillCardColors) + len(FillColorIdentities) + len(FillColorReferences))
+  # Print out all of the tables above for testing
+  for i in TableCreationQueries:
+    print(i, '\n')
+
+  for queries in [FillCardColors, FillColorIdentities, FillColorReferences]:
+    for query in queries:
+      print(query)
+    print('# --')
 
   return
 
