@@ -72,7 +72,7 @@ AbilityID = {'name':'AbilityID', 'type':'int', 'length':'', 'not_null':True,
     'primary':True, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
 
-CardID = {'name':'CardId', 'type':'int', 'length':'', 'not_null':True,
+CardID = {'name':'CardID', 'type':'int', 'length':'', 'not_null':True,
     'primary':True, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
 
@@ -146,7 +146,7 @@ TypeRefID = {'name':'TypeID', 'type':'int', 'length':'', 'not_null':False,
 # # -- DATABASE DATA ---------------------------------------
 # # --------------------------------------------------------
 
-AbilityText = {'name':'AbilityText', 'type':'char', 'length':'500', 'not_null':False,
+AbilityText = {'name':'AbilityText', 'type':'text', 'length':'500', 'not_null':False,
     'primary':False, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
 
@@ -154,7 +154,7 @@ CardName = {'name':'CardName', 'type':'char', 'length':'100', 'not_null':True,
     'primary':False, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
 
-ColorIdentityName = {'name':'ColorIdentityName', 'type':'char', 'length':'500', 'not_null':True,
+ColorIdentityName = {'name':'ColorIdentityName', 'type':'text', 'length':'500', 'not_null':True,
     'primary':False, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
 
@@ -182,6 +182,14 @@ ManaCost = {'name':'ManaCost', 'type':'char', 'length':'20', 'not_null':True,
     'primary':False, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
 
+ObjectType = {'name':'ObjectType', 'type':'char', 'length':'100', 'not_null':True,
+    'primary':False, 'reference':False, 'ref_table':'', 
+    'ref_variable':''}
+
+OracleID = {'name':'OracleId', 'type':'int', 'length':'', 'not_null':True,
+    'primary':False, 'reference':False, 'ref_table':'', 
+    'ref_variable':''}
+
 Power = {'name':'Power', 'type':'char', 'length':'10', 'not_null':False,
     'primary':False, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
@@ -190,7 +198,7 @@ Toughness = {'name':'Toughness', 'type':'char', 'length':'10', 'not_null':False,
     'primary':False, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
 
-TypeText = {'name':'TypeText', 'type':'char', 'length':'500', 'not_null':True,
+TypeText = {'name':'TypeText', 'type':'text', 'length':'500', 'not_null':True,
     'primary':False, 'reference':False, 'ref_table':'', 
     'ref_variable':''}
 
@@ -203,7 +211,7 @@ TypeText = {'name':'TypeText', 'type':'char', 'length':'500', 'not_null':True,
 
 TableCreationQueries = []
 
-CardInfoTable = create_table_query('CardInformation', [CardID, CardName, CostRefID, StatsRefID, LayoutRefID, ColorIdentityRefID])
+CardInfoTable = create_table_query('CardInformation', [CardID, CardName, CostRefID, StatsRefID, LayoutRefID, ColorIdentityRefID, ObjectType, OracleID])
 TableCreationQueries += [CardInfoTable, ]
 
 AbilityRefTable = create_table_query('AbilityReference', [CardRefID, AbilityRefID])
@@ -239,6 +247,8 @@ TableCreationQueries += [CardStatsTable, ]
 # Print out all of the tables above for testing
 for i in TableCreationQueries:
   print(i, '\n')
+
+print('# --', '\n')
 
 # # --------------------------------------------------------
 # # -- DATABASE QUERIES ------------------------------------
@@ -313,11 +323,7 @@ ColorIdentities = [
 # # -- JSON FILE FIELDS ------------------------------------
 # # --------------------------------------------------------
 
-selected_fields = ['id', 'oracle_id', 'layout', 'released_at', 'image_uris', 'mana_cost', 'cmc', 'colors', 'color_identity', 'name', 'type_line', 'oracle_text', 'power', 'toughness', 'legalities', 'set', 'set_name', 'reprint', 'artist', 'rarity', 'lang']
-
-needed_fields = ['object', 'id', 'oracle_id', 'name', 'released_at', 'scryfall_uri', 'layout', 'mana_cost', 'cmc', 'type_line', 'oracle_text', 'power', 'toughness', 'colors', 'color_identity', 'legalities', 'set', 'set_name', 'set_type', 'rarity', 'loyalty']
-
-all_fields = ['object', 'id', 'oracle_id', 'multiverse_ids', 'name', 'lang', 'released_at', 'uri', 'scryfall_uri', 'layout', 'highres_image', 'image_uris', 'mana_cost', 'cmc', 'type_line', 'oracle_text', 'power', 'toughness', 'colors', 'color_identity', 'legalities', 'games', 'reserved', 'foil', 'nonfoil', 'oversized', 'promo', 'reprint', 'variation', 'set', 'set_name', 'set_type', 'set_uri', 'set_search_uri', 'scryfall_set_uri', 'rulings_uri', 'prints_search_uri', 'collector_number', 'digital', 'rarity', 'card_back_id', 'artist', 'artist_ids', 'illustration_id', 'border_color', 'frame', 'full_art', 'textless', 'booster', 'story_spotlight', 'edhrec_rank', 'related_uris', 'frame_effects', 'preview', 'card_faces', 'flavor_text', 'loyalty', 'all_parts', 'tcgplayer_id', 'promo_types', 'mtgo_id', 'frame_effect', 'watermark', 'arena_id', 'variation_of', 'color_indicator', 'printed_name', 'printed_type_line', 'printed_text', 'mtgo_foil_id', 'life_modifier', 'hand_modifier']
+needed_fields = ['object', 'id', 'oracle_id', 'name', 'layout', 'mana_cost', 'cmc', 'type_line', 'oracle_text', 'power', 'toughness', 'colors', 'color_identity', 'loyalty']
 
 # # --------------------------------------------------------
 # # -- JSON FILE FIELDS ------------------------------------
@@ -332,11 +338,13 @@ def PopulateColorQuries():
   Generate a list of Insert Queries for every Mana color that is listed in the 
   Mana Colors list, then add them to a returnable list.
 
-  Mana Color Table Definition
-  ManaColorsTable = create_table_query('ManaColors', [ManaColorID, ManaColorName, ManaColorSymbol])
-  
-  Mana Colors List
-  CardColors = [ {'name':'Colorless', 'colorid':1, 'symbol':'C'}, ...]
+  Used Variables:
+
+    Mana Color Table Definition
+    ManaColorsTable = create_table_query('ManaColors', [ManaColorID, ManaColorName, ManaColorSymbol])
+    
+    Mana Colors List
+    CardColors = [ {'name':'Colorless', 'colorid':1, 'symbol':'C'}, ...]
   """
   
   PopulateList = []
@@ -345,7 +353,7 @@ def PopulateColorQuries():
 
     Query = 'INSERT INTO ManaColors ({}, {}, {})'.format(ManaColorName['name'], ManaColorID['name'], ManaColorSymbol['name'])
 
-    Query += ' VALUES (\'{}\', {}, \'{}\')'.format(Color['name'], Color['colorid'], Color['symbol'])
+    Query += ' VALUES (\'{}\', {}, \'{}\');'.format(Color['name'], Color['colorid'], Color['symbol'])
     
     print(Query, '\n')
     
@@ -357,15 +365,16 @@ def PopulateColorQuries():
 
 def PopulateColorIdentityQueries():
   """
-  
-  Color Identity Table
-  ColorIdentityTable = create_table_query('ColorIdentity', [ColorIdentityID, ColorIdentityName])
+  Return a list of queries to fill the Card Identity Table using the 
+  ColorIdentities List's names and ids.
 
-  Mana Colors List
-  CardColors = [ {'name':'Colorless', 'colorid':1, 'symbol':'C'}, ...]
+  Used Variables:
 
-  Color Identities List Form
-  ColorIdentities = [ {'identityname':'Colorless', 'identityid':1, 'colors':['C']}, ... ]
+    Color Identity Table
+    ColorIdentityTable = create_table_query('ColorIdentity', [ColorIdentityID, ColorIdentityName])
+
+    Color Identities Obj
+    ColorIdentities = [ {'identityname':'Colorless', 'identityid':1, 'colors':['C']}, ... ]
   """
 
   ColorIdentityQueries = []
@@ -374,7 +383,7 @@ def PopulateColorIdentityQueries():
 
     Query = 'INSERT INTO ColorIdentity ({}, {})'.format(ColorIdentityName['name'], ColorIdentityID['name'])
 
-    Query += ' VALUES (\'{}\', {})'.format(Identity['identityname'], Identity['identityid'])
+    Query += ' VALUES (\'{}\', {});'.format(Identity['identityname'], Identity['identityid'])
     
     print(Query, '\n')
 
@@ -386,15 +395,20 @@ def PopulateColorIdentityQueries():
 
 def PopulateColorIdentityRefQueries():
   """
-  
-  Color Reference Table
-  ManaColorRefTable = create_table_query('ManaColorReference', [ColorIdentityRefID, ManaColorRefID])
+  Using the Color and Color Identity Lists, for every Identity, match it with 
+  the colors that are related, then create a query to add them to the 
+  ColorReference Table, then Return that list out.
 
-  Mana Colors List
-  CardColors = [ {'name':'Colorless', 'colorid':1, 'symbol':'C'}, ...]
+  Used Variables:
 
-  Color Identities List Form
-  ColorIdentities = [ {'identityname':'Colorless', 'identityid':1, 'colors':['C']}, ... ]
+    Color Reference Table
+    ManaColorRefTable = create_table_query('ManaColorReference', [ColorIdentityRefID, ManaColorRefID])
+
+    Mana Colors Obj
+    CardColors = [ {'name':'Colorless', 'colorid':1, 'symbol':'C'}, ...]
+
+    Color Identities Obj
+    ColorIdentities = [ {'identityname':'Colorless', 'identityid':1, 'colors':['C']}, ... ]
   """
 
   ColorIdentityReferenceQueries = []
@@ -409,7 +423,7 @@ def PopulateColorIdentityRefQueries():
 
           Query = 'INSERT INTO ManaColorReference ({}, {})'.format(ColorIdentityRefID['name'], ManaColorRefID['name'])
 
-          Query += ' VALUES (\'{}\', {})'.format(Identity['identityid'], ManaColor['symbol'])
+          Query += ' VALUES (\'{}\', {});'.format(Identity['identityid'], ManaColor['colorid'])
 
           print(Query, '\n')
 
@@ -419,9 +433,7 @@ def PopulateColorIdentityRefQueries():
 
 # # --------------------------------------------------------
 
-FillCardColors = PopulateColorQuries()
-FillColorIdentities = PopulateColorIdentityQueries()
-FillColorReferences = PopulateColorIdentityRefQueries()
+
 
 # # --------------------------------------------------------
 # # -- POPULATE TABLES -------------------------------------
@@ -451,15 +463,21 @@ def main():
   """
   """
 
+  FillCardColors = PopulateColorQuries()
+  print('# --', '\n')
+  FillColorIdentities = PopulateColorIdentityQueries()
+  print('# --', '\n')
+  FillColorReferences = PopulateColorIdentityRefQueries()
+  print('# --', '\n')
+
+  print('BLAH', len(FillCardColors) + len(FillColorIdentities) + len(FillColorReferences))
+
   return
 
 # # --------------------------------------------------------
 
 # main
 if (__name__ == '__main__'):
-  """
-  """
-
   main()
 
 # # --------------------------------------------------------
