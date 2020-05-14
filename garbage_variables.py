@@ -53,7 +53,7 @@ def create_table_query(table_name, table_item_list):
     # add it, if so, assert false.
     if (item['name'] in names):
 
-      print('\n\n\create_table_query: Duplicate Table provided `{}`.'.format(item['name']))
+      print('\n\ncreate_table_query: Duplicate Table provided `{}`.'.format(item['name']))
       
       assert(False)
 
@@ -525,7 +525,7 @@ def create_database_connection(db_file):
   # if the attempt fails, print the exception and error message.
   except sqlite3.Error as e:
 
-    print('\n\create_database_connection: Connection connect failed. \n{}'.format(e))
+    print('\n\ncreate_database_connection: Connection connect failed. \n{}'.format(e))
 
     assert(False)
 
@@ -584,7 +584,7 @@ def execute_database_query(conn, query):
   # if the attempt fails, print out the failure, the query, and the exception.
   except sqlite3.Error as e:
 
-    print('\n\execute_database_query: Execution of query failed. \n\t{} \n{}'.format(query, e))
+    print('\n\nexecute_database_query: Execution of query failed. \n\t{} \n{}'.format(query, e))
     assert(False)
 
   # else return false.
