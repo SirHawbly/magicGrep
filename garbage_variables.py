@@ -551,7 +551,7 @@ def close_database_connection(conn):
   # if it fails, print an error message and assert false.
   except sqlite3.Error as e:
 
-    print('\n\close_database_connection: Connection.close failed. \n{}'.format(e))
+    print('\n\nclose_database_connection: Connection.close failed. \n{}'.format(e))
     assert(False)
 
   # else return True.
