@@ -391,7 +391,7 @@ def populate_color_queries():
     
     ColorList += [Query, ]
 
-  return Color
+  return ColorList
 
 # # --------------------------------------------------------
 
@@ -615,13 +615,17 @@ def main(verbose=False):
     Main function for this file.
   """
 
-  # Print out all of the tables above for testing
+  # Print out all of the table creations
   if (verbose):
+
     for i in TableCreationQueries:
       print(i, '\n')
 
-  # run through the list of insert queries
+    print('# --')
+
+  # run through the list of insert queries and print them
   if (verbose):
+
     for queryList in [FillCardColors, FillColorIdentities, FillColorReferences, TruncateTables]:
       for query in queryList:
         print(query)
@@ -634,22 +638,27 @@ def main(verbose=False):
   # if our connection exists, 
   if dbconnect:
 
-    # loop through the three lists of query, executing all inside.
-    for queryList in [TableCreationQueries, FillCardColors, FillColorIdentities, FillColorReferences, TruncateTables]:
+    print('Executing Queries ...')
+
+    # loop through the three lists of query, executing all queries inside.
+    for queryList in [TableCreationQueries, TruncateTables, FillCardColors, FillColorIdentities, FillColorReferences]:
       for query in queryList:
+        
+        # print the query stripping out all newlines and tabs.
+        if (verbose):
+          print('\n---- {}'.format((query.replace('\t', '')).replace('\n', ' ')))
 
         # execute the query
         execute_database_query(dbconnect, query)
 
-        # print a period if the query passes. 
-        if (verbose):
-          print('. ', end='')
+    print('Finished Executing.')
 
     close_database_connection(dbconnect)
 
   else:
 
-    print('main: Connection does not exist.')
+    print('main: Database connection does not exist.')
+
     assert(False)
 
   return
@@ -658,12 +667,16 @@ def main(verbose=False):
 
 # main
 if (__name__ == '__main__'):
-  print(Toughness,'\n',Power,'\n')
-  main()
+
+  main(verbose=True)
 
 # # --------------------------------------------------------
 # # -- MAIN FUNCTION ---------------------------------------
 
+
+# NOTES
+
+# BROKEN QUERY EXISTS
 
 # ----------------------------------------------------------
 # -- END OF FILE -------------------------------------------
