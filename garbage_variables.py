@@ -17,7 +17,7 @@ import sqlite3
 # Function to create a table creation query
 def create_table_query(table_name, table_item_list):
   """
-  given a table name and a list of items, in the format of:
+  Given a table name and a list of items, in the format of:
   
   [{'name':'', 'type':'', 'length':'', 'not_null':'',
     'primary':'', 'reference':'', 'ref_table':'', 
@@ -25,51 +25,68 @@ def create_table_query(table_name, table_item_list):
   
   output a database query to create a tablewith that specified 
   name and item list.
+
+  Used Variables:
+
+    Database Name
+    table_name = 'colors'
+
+    Table Items
+    table_item_list = [{'name': 'Power', 'type': 'char', ...}, {'name': 'Toughness', 'type': 'char', ...}]
+
+    Table Item String
+    ItemStr = 'ManaColorID INT NOT NULL PRIMARY KEY'
+
+    Table Creation Query
+    QueryString = 'CREATE TABLE IF NOT EXISTS ManaColors (ManaColorID INT NOT NULL PRIMARY KEY, ...'
   """
 
   names = []
 
   # start out the query
-  query_string = 'CREATE TABLE IF NOT EXISTS {} (\n'.format(table_name)
+  QueryString = 'CREATE TABLE IF NOT EXISTS {} (\n'.format(table_name)
 
-  # start off with the item_string with a name and a type
+  # start off with the item string with a name and a type
   for item in table_item_list:
 
     # check if that variable name already exists, if not, 
     # add it, if so, assert false.
     if (item['name'] in names):
+
+      print('\n\n\create_table_query: Duplicate Table provided `{}`.'.format(item['name']))
+      
       assert(False)
 
     else:
       names += [item['name'], ]
 
-    item_str = '\t{} {}'.format(item['name'], item['type'].upper())
+    ItemStr = '\t{} {}'.format(item['name'], item['type'].upper())
 
     # if this is a string, then we should define a length
     # (I'm not going to use varchars, ill neglect them)
     if (item['length']):
-      item_str += ' ({})'.format(item['length'])
+      ItemStr += ' ({})'.format(item['length'])
 
     # if this needs to have a non-null value, add that.
     if (item['not_null'] == True):
-      item_str += ' NOT NULL'
+      ItemStr += ' NOT NULL'
 
     # if the item is a reference to another table, add that.
     if (item['reference'] and not item['primary']):
-      item_str += ' REFERENCES {}({})'.format(item['ref_table'], item['ref_variable'])
+      ItemStr += ' REFERENCES {}({})'.format(item['ref_table'], item['ref_variable'])
 
     # if the item is a primary key, then add that.
     if (item['primary'] and not item['reference']):
-      item_str += ' PRIMARY KEY'
+      ItemStr += ' PRIMARY KEY'
 
     # If this is not the last in the list, dont need a comma
     if (item != table_item_list[-1]):
-      query_string += item_str + ',\n'
+      QueryString += ItemStr + ',\n'
     else:
-      query_string += item_str
+      QueryString += ItemStr
   
   # return the create query
-  return query_string + '\n);'
+  return QueryString + '\n);'
 
 # # --------------------------------------------------------
 # # -- DATABASE SCRIPTS ------------------------------------
@@ -133,13 +150,13 @@ CostRefID = {'name':'CostID', 'type':'int', 'length':'', 'not_null':False,
     'primary':False, 'reference':True, 'ref_table':'CardCosts', 
     'ref_variable':'CostID'}
 
-ManaColorRefID = {'name':'ManaColorID', 'type':'int', 'length':'', 'not_null':False,
-    'primary':False, 'reference':True, 'ref_table':'ManaColors', 
-    'ref_variable':'ManaColorID'}
-
 LayoutRefID = {'name':'LayoutID', 'type':'int', 'length':'', 'not_null':False,
     'primary':False, 'reference':True, 'ref_table':'CardLayouts', 
     'ref_variable':'LayoutID'}
+
+ManaColorRefID = {'name':'ManaColorID', 'type':'int', 'length':'', 'not_null':False,
+    'primary':False, 'reference':True, 'ref_table':'ManaColors', 
+    'ref_variable':'ManaColorID'}
 
 StatsRefID = {'name':'StatsID', 'type':'int', 'length':'', 'not_null':False,
     'primary':False, 'reference':True, 'ref_table':'CardStats', 
@@ -214,6 +231,17 @@ TypeText = {'name':'TypeText', 'type':'text', 'length':'500', 'not_null':True,
 
 # # --------------------------------------------------------
 # # -- DATABASE DATA ---------------------------------------
+
+
+# # -- FIELD/TABLE LISTS -----------------------------------
+# # --------------------------------------------------------
+
+needed_fields = ['object', 'id', 'oracle_id', 'name', 'layout', 'mana_cost', 'cmc', 'type_line', 'oracle_text', 'power', 'toughness', 'colors', 'color_identity', 'loyalty']
+
+DatabaseTableNames = ['CardInformation', 'AbilityReference', 'CardAbilities', 'TypeReference', 'CardTypes', 'ColorIdentity', 'ManaColorReference', 'ManaColors', 'CardLayouts', 'CardCosts', 'CardStats']
+
+# # --------------------------------------------------------
+# # -- FIELD/TABLE LISTS -----------------------------------
 
 
 # # -- DATABASE QUERIES ------------------------------------
@@ -324,23 +352,11 @@ ColorIdentities = [
 # # -- COLOR VALUES ----------------------------------------
 
 
-# # -- GLOBAL LISTS ----------------------------------------
-# # --------------------------------------------------------
-
-needed_fields = ['object', 'id', 'oracle_id', 'name', 'layout', 'mana_cost', 'cmc', 'type_line', 'oracle_text', 'power', 'toughness', 'colors', 'color_identity', 'loyalty']
-
-DatabaseTableNames = ['CardInformation', 'AbilityReference', 'CardAbilities', 'TypeReference', 'CardTypes', 'ColorIdentity', 'ManaColorReference', 'ManaColors', 'CardLayouts', 'CardCosts', 'CardStats']
-
-
-# # --------------------------------------------------------
-# # -- GLOBAL LISTS ----------------------------------------
-
-
 # # -- POPULATE TABLES -------------------------------------
 # # --------------------------------------------------------
 
 # Function that fills the top three variables
-def PopulateColorQuries():
+def populate_color_queries():
   """
   Generate a list of Insert Queries for every Mana color that is listed in the 
   Mana Colors list, then add them to a returnable list.
@@ -352,9 +368,15 @@ def PopulateColorQuries():
     
     Mana Colors List
     CardColors = [ {'name':'Colorless', 'colorid':1, 'symbol':'C'}, ...]
+
+    Database Query
+    Query = 'INSERT INTO ManaColors (ColorName, ManaColorID, ColorSymbol) VALUES ('Colorless', 1, 'C');'
+
+    Query List
+    ColorList = ['INSERT INTO ManaColors (ColorName, ManaColorID, ColorSymbol) VALUES ('Colorless', 1, 'C');', ...]
   """
   
-  PopulateList = []
+  ColorList = []
   
   # loop through the list of card colors (White, Blue, Black, Red, Green, and colorless)
   for Color in CardColors:
@@ -364,15 +386,16 @@ def PopulateColorQuries():
 
     # add the second half of the query, the data from the given color
     Query += ' VALUES (\'{}\', {}, \'{}\');'.format(Color['name'], Color['colorid'], Color['symbol'])
+
     # print(Query, '\n')
     
-    PopulateList += [Query, ]
+    ColorList += [Query, ]
 
-  return PopulateList
+  return Color
 
 # # --------------------------------------------------------
 
-def PopulateColorIdentityQueries():
+def populate_color_identity_queries():
   """
   Return a list of queries to fill the Card Identity Table using the 
   ColorIdentities List's names and ids.
@@ -384,12 +407,17 @@ def PopulateColorIdentityQueries():
 
     Color Identities Obj
     ColorIdentities = [ {'identityname':'Colorless', 'identityid':1, 'colors':['C']}, ... ]
+
+    Database Query
+    Query = 'INSERT INTO ColorIdentity (ColorIdentityName, ColorIdentityID) VALUES ('Colorless', 1);'
+
+    Query List
+    ColorIdentityQueries = ['INSERT INTO ColorIdentity (ColorIdentityName, ColorIdentityID) VALUES ('Colorless', 1);', ...]
   """
 
   ColorIdentityQueries = []
 
   for Identity in ColorIdentities:
-
 
     Query = 'INSERT INTO ColorIdentity ({}, {})'.format(ColorIdentityName['name'], ColorIdentityID['name'])
 
@@ -402,7 +430,7 @@ def PopulateColorIdentityQueries():
 
 # # --------------------------------------------------------
 
-def PopulateColorIdentityRefQueries():
+def populate_color_identity_ref_queries():
   """
   Using the Color and Color Identity Lists, for every Identity, match it with 
   the colors that are related, then create a query to add them to the 
@@ -413,11 +441,17 @@ def PopulateColorIdentityRefQueries():
     Color Reference Table
     ManaColorRefTable = create_table_query('ManaColorReference', [ColorIdentityRefID, ManaColorRefID])
 
-    Mana Colors Obj
-    CardColors = [ {'name':'Colorless', 'colorid':1, 'symbol':'C'}, ...]
+    Mana Colors List
+    CardColors = [{'name':'Colorless', 'colorid':1, 'symbol':'C'}, ...]
 
-    Color Identities Obj
-    ColorIdentities = [ {'identityname':'Colorless', 'identityid':1, 'colors':['C']}, ... ]
+    Color Identities List
+    ColorIdentities = [{'identityname':'Colorless', 'identityid':1, 'colors':['C']}, ...]
+
+    Database Query
+    Query = 'INSERT INTO ManaColorReference (...'
+
+    Query List
+    ColorIdentityReferenceQueries = ['INSERT INTO ManaColorReference ...', ...]
   """
 
   ColorIdentityReferenceQueries = []
@@ -443,10 +477,15 @@ def PopulateColorIdentityRefQueries():
 
 # # --------------------------------------------------------
 
-def TableTruncateQueries():
+def populate_table_truncate_queries():
   """
-    Create queriest to truncate all tables so they can be 
+    Create queries to truncate all tables so they can be 
     re-populated.
+
+    Used Variables:
+
+      Truncate Query List
+      DatabaseTruncateQueries = ['DELETE FROM colors;', 'DELETE FROM color_ref', ...]
   """
 
   DatabaseTruncateQueries = []
@@ -464,9 +503,17 @@ def TableTruncateQueries():
 # # --------------------------------------------------------
 
 # modified from: https://www.sqlitetutorial.net/sqlite-python/creating-database/
-def CreateDatabaseConnection(db_file):
+def create_database_connection(db_file):
   """ 
-    Create and return a database connection.
+    Given a file name, create and return a database connection.
+
+    Used Variables:
+
+      Database File Name
+      db_file = 'db_file.txt'
+
+      Database Connection
+      conn = sqlite3.connect(db_file)
   """
 
   conn = None
@@ -478,7 +525,7 @@ def CreateDatabaseConnection(db_file):
   # if the attempt fails, print the exception and error message.
   except sqlite3.Error as e:
 
-    print('Connection connect failed. \n{}'.format(e))
+    print('\n\create_database_connection: Connection connect failed. \n{}'.format(e))
 
     assert(False)
 
@@ -487,19 +534,24 @@ def CreateDatabaseConnection(db_file):
 
 # # --------------------------------------------------------
 
-def CloseDatabaseConnection(connection):
+def close_database_connection(conn):
   """
-    Close a connection if it exists.
-  """
+    Close a provided database connection if it exists.
+
+    Used Variables:
+
+      Database Connection
+      conn = sqlite3.connect('db_file')
+"""
 
   # if the connection exists, close it.
   try:
-    connection.close()
+    conn.close()
 
   # if it fails, print an error message and assert false.
   except sqlite3.Error as e:
 
-    print('Connection.close failed. \n{}'.format(e))
+    print('\n\close_database_connection: Connection.close failed. \n{}'.format(e))
     assert(False)
 
   # else return True.
@@ -507,20 +559,32 @@ def CloseDatabaseConnection(connection):
 
 # # --------------------------------------------------------
 
-def ExecuteDatabaseQuery(connection, query):
+def execute_database_query(conn, query):
   """ 
-    Executes a provided query through a database connection.
+    Execute a provided query through a database connection,
+    if it exists.
+
+    Used Variables:
+
+      Database Connection
+      conn = sqlite3.connect('db_file')
+
+      Database Cursor
+      c = conn.cursor()
+
+      Database Query
+      query = 'SELECT * FROM colors;'
   """
 
   # attempt to execute the query through a cursor.
   try:
-    c = connection.cursor()
+    c = conn.cursor()
     c.execute(query)
 
   # if the attempt fails, print out the failure, the query, and the exception.
   except sqlite3.Error as e:
 
-    print('\n\nExecution of query failed. \n\t{} \n{}'.format(query, e))
+    print('\n\execute_database_query: Execution of query failed. \n\t{} \n{}'.format(query, e))
     assert(False)
 
   # else return false.
@@ -530,47 +594,42 @@ def ExecuteDatabaseQuery(connection, query):
 # # -- DATABASE CONNECTION ---------------------------------
 
 
-# # -- GLOBALS ---------------------------------------------
+# # -- GLOBAL QUERIES --------------------------------------
 # # --------------------------------------------------------
 
-FillCardColors = PopulateColorQuries()
-FillColorIdentities = PopulateColorIdentityQueries()
-FillColorReferences = PopulateColorIdentityRefQueries()
-TruncateTables = TableTruncateQueries()
+FillCardColors = populate_color_queries()
+FillColorIdentities = populate_color_identity_queries()
+FillColorReferences = populate_color_identity_ref_queries()
+TruncateTables = populate_table_truncate_queries()
 
 # # --------------------------------------------------------
-# # -- GLOBALS ---------------------------------------------
-
-
-# # -- OTHER GLOBAL VARIABLES ------------------------------
-# # --------------------------------------------------------
-
-# # --------------------------------------------------------
-# # -- OTHER GLOBAL VARIABLES ------------------------------
+# # -- GLOBAL QUERIES --------------------------------------
 
 
 # # -- MAIN FUNCTION ---------------------------------------
 # # --------------------------------------------------------
 
 # main function
-def main():
+def main(verbose=False):
   """
     Main function for this file.
   """
 
   # Print out all of the tables above for testing
-  for i in TableCreationQueries:
-    print(i, '\n')
+  if (verbose):
+    for i in TableCreationQueries:
+      print(i, '\n')
 
   # run through the list of insert queries
-  for queryList in [FillCardColors, FillColorIdentities, FillColorReferences, TruncateTables]:
-    for query in queryList:
-      print(query)
+  if (verbose):
+    for queryList in [FillCardColors, FillColorIdentities, FillColorReferences, TruncateTables]:
+      for query in queryList:
+        print(query)
 
-    print('# --')
+      print('# --')
 
   # create/connect to the database file, 'mcard.db'
-  dbconnect = CreateDatabaseConnection('mcard.db')
+  dbconnect = create_database_connection('mcard.db')
 
   # if our connection exists, 
   if dbconnect:
@@ -580,12 +639,17 @@ def main():
       for query in queryList:
 
         # execute the query
-        ExecuteDatabaseQuery(dbconnect, query)
-        print('. ', end='')
+        execute_database_query(dbconnect, query)
+
+        # print a period if the query passes. 
+        if (verbose):
+          print('. ', end='')
+
+    close_database_connection(dbconnect)
 
   else:
 
-    print('Connection does not exist.')
+    print('main: Connection does not exist.')
     assert(False)
 
   return
@@ -594,6 +658,7 @@ def main():
 
 # main
 if (__name__ == '__main__'):
+  print(Toughness,'\n',Power,'\n')
   main()
 
 # # --------------------------------------------------------
