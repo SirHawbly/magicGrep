@@ -142,8 +142,8 @@ CardRefID = {'name':'CardId', 'type':'int', 'length':'', 'not_null':False,
     'primary':False, 'reference':True, 'ref_table':'CardInformation', 
     'ref_variable':'CardId'}
 
-ColorIdentityRefID = {'name':'ColorIdentityID', 'type':'int', 'length':'', 'not_null':False,
-    'primary':False, 'reference':True, 'ref_table':'ManaColorIdentity', 
+ColorIdentityRefID = {'name':'ColorIdentityID', 'type':'int', 'length':'', 
+    'not_null':False, 'primary':False, 'reference':True, 'ref_table':'ManaColorIdentity', 
     'ref_variable':'ColorIdentityID'}    
 
 CostRefID = {'name':'CostID', 'type':'int', 'length':'', 'not_null':False,
@@ -467,7 +467,7 @@ def populate_color_identity_ref_queries():
           Query = 'INSERT INTO ManaColorReference ({}, {})'.format(ColorIdentityRefID['name'], ManaColorRefID['name'])
 
           # create the second half of the query, adding the two ids.
-          Query += ' VALUES (\'{}\', {});'.format(Identity['identityid'], ManaColor['colorid'])
+          Query += ' VALUES ({}, {});'.format(Identity['identityid'], ManaColor['colorid'])
           # print(Query, '\n')
 
           # add the query to the list.
@@ -646,7 +646,7 @@ def main(verbose=False):
         
         # print the query stripping out all newlines and tabs.
         if (verbose):
-          print('\n---- {}'.format((query.replace('\t', '')).replace('\n', ' ')))
+          print('\n---- "{}"'.format((query.replace('\t', '')).replace('\n', ' ')))
 
         # execute the query
         execute_database_query(dbconnect, query)
